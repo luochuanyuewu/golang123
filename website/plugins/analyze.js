@@ -1,7 +1,7 @@
 import UAParser from 'ua-parser-js'
 import storage from '~/utils/storage'
 import uuid from '~/utils/uuid'
-import request from '~/net/request'
+// import request from '~/net/request'
 
 let ua
 
@@ -38,26 +38,26 @@ function pv () {
         storage.setItem(LOCAL_DATA, localData)
     }
 
-    let params = {
-        clientId: localData.clientId,
-        platform: 'web_pc',
-        osName: ua.os.name,
-        osVersion: ua.os.version,
-        language: ua.language,
-        country: ua.country,
-        deviceModel: ua.device.model,
-        deviceWidth: ua.device.screenWidth,
-        deviceHeight: ua.device.screenHeight,
-        referrer: encodeURIComponent(document.referrer),
-        url: encodeURIComponent(location.href),
-        browserName: ua.browser.name,
-        browserVersion: ua.browser.version
-    }
+    // let params = {
+    //     clientId: localData.clientId,
+    //     platform: 'web_pc',
+    //     osName: ua.os.name,
+    //     osVersion: ua.os.version,
+    //     language: ua.language,
+    //     country: ua.country,
+    //     deviceModel: ua.device.model,
+    //     deviceWidth: ua.device.screenWidth,
+    //     deviceHeight: ua.device.screenHeight,
+    //     referrer: encodeURIComponent(document.referrer),
+    //     url: encodeURIComponent(location.href),
+    //     browserName: ua.browser.name,
+    //     browserVersion: ua.browser.version
+    // }
 
-    request.sendUserVisit({
-        query: params
-    }).then(res => {
-    })
+    // request.sendUserVisit({
+    //     query: params
+    // }).then(res => {
+    // })
 }
 
 init()

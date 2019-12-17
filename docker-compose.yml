@@ -1,0 +1,26 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    container_name: learnue_db
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MysqlRootPassword}
+      MYSQL_USER: ${MysqlUser}
+      MYSQL_PASSWORD: ${MysqlPassword}
+      MYSQL_DATABASE: ${MysqlDatabase}
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+  redis:
+    image: redis:5-alpine
+    container_name: learnue_redis
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - "6379:6379"
+    command: redis-server
+
+

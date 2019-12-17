@@ -22,3 +22,5 @@ mobile/npm-debug.log
 review.md
 build.md
 vendor
+.env
+mysql_data/
