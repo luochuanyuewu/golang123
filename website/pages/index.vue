@@ -97,60 +97,59 @@ import htmlUtil from '~/utils/html'
 import baiduBanner900x110 from '~/components/ad/baidu/banner900x110'
 
 export default {
-  asyncData(context) {
-    context.store.commit('top10Visible', true)
-    context.store.commit('friendLinkVisible', true)
-    context.store.commit('statVisible', true)
-    const query = context.query || {}
-    return Promise.all([
-      request.getCategories({
-        client: context.req
-      }),
-      request.getArticles({
-        client: context.req,
-        query: {
-          cateId: query.cate || '',
-          pageNo: query.pageNo || 1,
-          noContent: 'true'
-        }
-      }),
-      request.getTopList({
-        client: context.req
-      })
-    ])
-      .then((data) => {
-        let user = context.user
-        let cate = query.cate || ''
-        let categories = data[0].data.categories || []
-        let articles = data[1].data.articles || []
-        let pageNo = data[1].data.pageNo
-        let totalCount = data[1].data.totalCount
-        let pageSize = data[1].data.pageSize
-        let topList = (data[2] && data[2].data.articles) || []
-        articles.map((items) => {
-          items.isTop = false
+  async asyncData(context) {
+    try {
+      context.store.commit('top10Visible', true)
+      context.store.commit('friendLinkVisible', true)
+      context.store.commit('statVisible', true)
+      const query = context.query || {}
+      const data = await Promise.all([
+        request.getCategories({
+          client: context.req
+        }),
+        request.getArticles({
+          client: context.req,
+          query: {
+            cateId: query.cate || '',
+            pageNo: query.pageNo || 1,
+            noContent: 'true'
+          }
+        }),
+        request.getTopList({
+          client: context.req
         })
-        if (!query.pageNo || parseInt(query.pageNo) < 2) {
-          topList.map((items) => {
-            items.isTop = true
-          })
-          articles = topList.concat(articles)
-        }
-        return {
-          totalVisible: process.env.NODE_ENV !== 'production',
-          categories: categories,
-          articles: articles,
-          totalCount: totalCount,
-          pageNo: pageNo,
-          pageSize: pageSize,
-          user: user,
-          cate: cate
-        }
+      ])
+      let user = context.user
+      let cate = query.cate || ''
+      let categories = data[0].data.categories || []
+      let articles = data[1].data.articles || []
+      let pageNo = data[1].data.pageNo
+      let totalCount = data[1].data.totalCount
+      let pageSize = data[1].data.pageSize
+      let topList = (data[2] && data[2].data.articles) || []
+      articles.map((items) => {
+        items.isTop = false
       })
-      .catch((err) => {
-        console.log(err.message)
-        context.error({ message: 'Not Found', statusCode: 404 })
-      })
+      if (!query.pageNo || parseInt(query.pageNo) < 2) {
+        topList.map((items) => {
+          items.isTop = true
+        })
+        articles = topList.concat(articles)
+      }
+      return {
+        totalVisible: process.env.NODE_ENV !== 'production',
+        categories: categories,
+        articles: articles,
+        totalCount: totalCount,
+        pageNo: pageNo,
+        pageSize: pageSize,
+        user: user,
+        cate: cate
+      }
+    } catch (err) {
+      console.log(err.message)
+      context.error({ message: 'Not Found', statusCode: 404 })
+    }
   },
   head() {
     return {

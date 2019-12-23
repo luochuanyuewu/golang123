@@ -15,22 +15,20 @@ import crawler from '~/components/admin/crawler'
 import request from '~/net/request'
 
 export default {
-  asyncData(context) {
-    return request
-      .getCategories({
+  async asyncData(context) {
+    try {
+      const res = await request.getCategories({
         client: context.req
       })
-      .then((res) => {
-        let categories = res.data.categories
-        return {
-          cateId: (categories && categories[0].id + '') || '',
-          categories: categories
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-        context.error({ statusCode: 404, message: 'Page not found' })
-      })
+      let categories = res.data.categories
+      return {
+        cateId: (categories && categories[0].id + '') || '',
+        categories: categories
+      }
+    } catch (err) {
+      console.log(err)
+      context.error({ statusCode: 404, message: 'Page not found' })
+    }
   },
 
   data() {

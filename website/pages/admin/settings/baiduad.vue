@@ -97,50 +97,47 @@ import request from '~/net/request'
 import ErrorCode from '~/constant/ErrorCode'
 
 export default {
-  asyncData(context) {
-    return request
-      .getSiteInfo({
-        client: context.req
-      })
-      .then((res) => {
-        let baiduAdConfig = res.data.baiduAdConfig
-        console.log(baiduAdConfig)
-        return {
-          formData: {
-            banner760x90: baiduAdConfig.banner760x90,
-            banner2_760x90: baiduAdConfig.banner2_760x90,
-            banner3_760x90: baiduAdConfig.banner3_760x90,
-            ad250x250: baiduAdConfig.ad250x250,
-            ad120x90: baiduAdConfig.ad120x90,
-            ad20_3: baiduAdConfig.ad20_3,
-            ad20_3A: baiduAdConfig.ad20_3A,
-            allowBaiduAd: !!baiduAdConfig.allowBaiduAd
-          },
-          formRule: {
-            banner760x90: [
-              { required: true, message: '请输入代码位ID', trigger: 'blur' }
-            ],
-            banner2_760x90: [
-              { required: true, message: '请输入代码位ID', trigger: 'blur' }
-            ],
-            banner3_760x90: [
-              { required: true, message: '请输入代码位ID', trigger: 'blur' }
-            ],
-            ad250x250: [
-              { required: true, message: '请输入代码位ID', trigger: 'blur' }
-            ],
-            ad120x90: [
-              { required: true, message: '请输入代码位ID', trigger: 'blur' }
-            ],
-            ad20_3: [
-              { required: true, message: '请输入代码位ID', trigger: 'blur' }
-            ],
-            ad20_3A: [
-              { required: true, message: '请输入代码位ID', trigger: 'blur' }
-            ]
-          }
-        }
-      })
+  async asyncData(context) {
+    const res = await request.getSiteInfo({
+      client: context.req
+    })
+    let baiduAdConfig = res.data.baiduAdConfig
+    console.log(baiduAdConfig)
+    return {
+      formData: {
+        banner760x90: baiduAdConfig.banner760x90,
+        banner2_760x90: baiduAdConfig.banner2_760x90,
+        banner3_760x90: baiduAdConfig.banner3_760x90,
+        ad250x250: baiduAdConfig.ad250x250,
+        ad120x90: baiduAdConfig.ad120x90,
+        ad20_3: baiduAdConfig.ad20_3,
+        ad20_3A: baiduAdConfig.ad20_3A,
+        allowBaiduAd: !!baiduAdConfig.allowBaiduAd
+      },
+      formRule: {
+        banner760x90: [
+          { required: true, message: '请输入代码位ID', trigger: 'blur' }
+        ],
+        banner2_760x90: [
+          { required: true, message: '请输入代码位ID', trigger: 'blur' }
+        ],
+        banner3_760x90: [
+          { required: true, message: '请输入代码位ID', trigger: 'blur' }
+        ],
+        ad250x250: [
+          { required: true, message: '请输入代码位ID', trigger: 'blur' }
+        ],
+        ad120x90: [
+          { required: true, message: '请输入代码位ID', trigger: 'blur' }
+        ],
+        ad20_3: [
+          { required: true, message: '请输入代码位ID', trigger: 'blur' }
+        ],
+        ad20_3A: [
+          { required: true, message: '请输入代码位ID', trigger: 'blur' }
+        ]
+      }
+    }
   },
   methods: {
     onSubmit() {

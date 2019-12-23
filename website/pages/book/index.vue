@@ -43,34 +43,33 @@ import htmlUtil from '~/utils/html'
 import baiduBanner900x110 from '~/components/ad/baidu/banner900x110'
 
 export default {
-  asyncData(context) {
-    context.store.commit('publishTopicVisible', false)
-    context.store.commit('createBookVisible', true)
-    const query = context.query || {}
-    return Promise.all([
-      request.getBookCategories({
-        client: context.req
-      }),
-      request.getBooks({
-        client: context.req,
-        query: {
-          cateId: query.cate || ''
-        }
-      })
-    ])
-      .then((arr) => {
-        let categories = arr[0].data.categories
-        let books = arr[1].data.books
-        return {
-          categories: categories,
-          books: books,
-          cate: query.cate || ''
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-        context.error({ statusCode: 404, message: 'Page not found' })
-      })
+  async asyncData(context) {
+    try {
+      context.store.commit('publishTopicVisible', false)
+      context.store.commit('createBookVisible', true)
+      const query = context.query || {}
+      const arr = await Promise.all([
+        request.getBookCategories({
+          client: context.req
+        }),
+        request.getBooks({
+          client: context.req,
+          query: {
+            cateId: query.cate || ''
+          }
+        })
+      ])
+      let categories = arr[0].data.categories
+      let books = arr[1].data.books
+      return {
+        categories: categories,
+        books: books,
+        cate: query.cate || ''
+      }
+    } catch (err) {
+      console.log(err)
+      context.error({ statusCode: 404, message: 'Page not found' })
+    }
   },
   head() {
     return {

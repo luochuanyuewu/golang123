@@ -88,17 +88,14 @@ export default {
       ]
     }
   },
-  asyncData(context) {
-    return request
-      .getCrawlAccount({
-        client: context.req
-      })
-      .then((res) => {
-        return {
-          userList: res.data,
-          hasUser: res.data && res.data.length > 0
-        }
-      })
+  async asyncData(context) {
+    const res = await request.getCrawlAccount({
+      client: context.req
+    })
+    return {
+      userList: res.data,
+      hasUser: res.data && res.data.length > 0
+    }
   },
   methods: {
     onSubmit() {

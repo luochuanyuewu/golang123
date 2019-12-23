@@ -46,9 +46,9 @@ export default {
       sex: 0
     }
   },
-  asyncData(context) {
-    return request
-      .getMineVote({
+  async asyncData(context) {
+    try {
+      const res = await request.getMineVote({
         client: context.req,
         params: {
           userID: context.params.id
@@ -60,41 +60,39 @@ export default {
           pageSize: 20
         }
       })
-      .then((res) => {
-        let votes = res.data.votes || []
-        for (let i = 0; i < votes.length; i++) {
-          let limit = 100
-          let more = `...&nbsp;&nbsp;<a href="/vote/${votes[i].id}" target="_blank" class="golang123-digest-continue">继续阅读»</a>`
-          let trimObj = trimHtml(votes[i].htmlContent, {
+      let votes = res.data.votes || []
+      for (let i = 0; i < votes.length; i++) {
+        let limit = 100
+        let more = `...&nbsp;&nbsp;<a href="/vote/${votes[i].id}" target="_blank" class="golang123-digest-continue">继续阅读»</a>`
+        let trimObj = trimHtml(votes[i].htmlContent, {
+          limit: limit,
+          suffix: more,
+          moreLink: false
+        })
+        let content = trimObj.html
+        content = htmlUtil.trimImg(content)
+        if (!trimObj.more) {
+          let newTrimObj = trimHtml(votes[i].htmlContent, {
             limit: limit,
-            suffix: more,
-            moreLink: false
+            preserveTags: false
           })
-          let content = trimObj.html
-          content = htmlUtil.trimImg(content)
-          if (!trimObj.more) {
-            let newTrimObj = trimHtml(votes[i].htmlContent, {
-              limit: limit,
-              preserveTags: false
-            })
-            content = newTrimObj.html + more
-          }
-          votes[i].htmlContent = content
+          content = newTrimObj.html + more
         }
-        return {
-          userId: context.params.id,
-          pageNo: res.data.pageNo,
-          pageSize: res.data.pageSize,
-          totalCount: res.data.totalCount,
-          votes: res.data.votes || [],
-          user: context.user,
-          currentId: context.params.id
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-        context.error({ statusCode: 404, message: 'Page not found' })
-      })
+        votes[i].htmlContent = content
+      }
+      return {
+        userId: context.params.id,
+        pageNo: res.data.pageNo,
+        pageSize: res.data.pageSize,
+        totalCount: res.data.totalCount,
+        votes: res.data.votes || [],
+        user: context.user,
+        currentId: context.params.id
+      }
+    } catch (err) {
+      console.log(err)
+      context.error({ statusCode: 404, message: 'Page not found' })
+    }
   },
   mounted() {
     this.$data.sex = this.$parent.currentUser.sex

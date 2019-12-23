@@ -16,21 +16,18 @@ import request from '~/net/request'
 import Book from '~/components/book/save'
 
 export default {
-  asyncData(context) {
+  async asyncData(context) {
     context.store.commit('publishTopicVisible', false)
     context.store.commit('createBookVisible', true)
-    return request
-      .getBookCategories({
-        client: context.req
-      })
-      .then((res) => {
-        return {
-          book: null,
-          categories: res.data.categories,
-          stepVisible: false,
-          user: context.user
-        }
-      })
+    const res = await request.getBookCategories({
+      client: context.req
+    })
+    return {
+      book: null,
+      categories: res.data.categories,
+      stepVisible: false,
+      user: context.user
+    }
   },
   middleware: 'userRequired',
   mounted() {

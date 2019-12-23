@@ -121,28 +121,25 @@ export default {
     var hasKey = !!params.key
     return hasId && hasKey
   },
-  asyncData(context) {
-    return request
-      .verifyUrl({
-        client: context.req,
-        params: {
-          id: context.params.id,
-          key: context.params.key
-        }
-      })
-      .then((res) => {
-        if (res.errNo === ErrorCode.SUCCESS) {
-          return {
-            user: context.user,
-            error: ''
-          }
-        } else {
-          return {
-            user: context.user,
-            error: res.msg
-          }
-        }
-      })
+  async asyncData(context) {
+    const res = await request.verifyUrl({
+      client: context.req,
+      params: {
+        id: context.params.id,
+        key: context.params.key
+      }
+    })
+    if (res.errNo === ErrorCode.SUCCESS) {
+      return {
+        user: context.user,
+        error: ''
+      }
+    } else {
+      return {
+        user: context.user,
+        error: res.msg
+      }
+    }
   },
   head() {
     return {
