@@ -1,10 +1,9 @@
 'use strict'
-
+import https from 'https'
 const axios = require('axios')
 const config = require('~/config')
 const apiConfig = require('~/config/apiConfig')
 const adminAPIConfig = require('~/config/adminAPIConfig')
-
 const req = {}
 
 function send (key, options) {
@@ -43,11 +42,13 @@ function send (key, options) {
         let axiosConfig = {
             method: theConfig.method,
             url: url,
-            headers: {}
+            headers: {},
+            httpsAgent: process.env.NODE_ENV === 'development' ? new https.Agent({rejectUnauthorized: false}) : undefined
         }
         if (config.useProxy && process.env.NODE_ENV === 'development') {
             axiosConfig.proxy = config.proxy
         }
+
         let client = options.client
         if (typeof window === 'undefined' && !client) {
             throw new Error(key + ': client不能为空')
