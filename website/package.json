@@ -1,38 +1,39 @@
 {
-  "name": "golang123-pc",
-  "version": "0.1.1",
-  "description": "golang123",
-  "author": "shen100 <liushen_shen@163.com>",
-  "private": true,
-  "config": {
-    "nuxt": {
-      "host": "0.0.0.0",
-      "port": 8020
+    "name": "golang123-pc",
+    "version": "0.1.1",
+    "description": "golang123",
+    "author": "shen100 <liushen_shen@163.com>",
+    "private": true,
+    "config": {
+        "nuxt": {
+            "host": "0.0.0.0",
+            "port": 8020
+        }
+    },
+    "scripts": {
+        "dev": "nuxt",
+        "build": "nuxt build",
+        "start": "nuxt start",
+        "generate": "nuxt generate",
+        "lint": "eslint --ext .js,.vue --ignore-path .eslintignore .",
+        "lintfix": "eslint --fix --ext .js,.vue --ignore-path .eslintignore .",
+        "precommit": "npm run lint"
+    },
+    "dependencies": {
+        "axios": "^0.19.0",
+        "iview": "^3.5.4",
+        "moment": "2.18.1",
+        "nuxt": "^2.11.0",
+        "trim-html": "^0.1.9",
+        "ua-parser-js": "^0.7.21"
+    },
+    "devDependencies": {
+        "babel-eslint": "^10.0.3",
+        "eslint": "^6.8.0",
+        "eslint-config-prettier": "^6.7.0",
+        "eslint-loader": "^3.0.3",
+        "eslint-plugin-prettier": "^3.1.2",
+        "eslint-plugin-vue": "^6.0.1",
+        "prettier": "^1.19.1"
     }
-  },
-  "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .eslintignore .",
-    "precommit": "npm run lint"
-  },
-  "dependencies": {
-    "axios": "0.16.2",
-    "iview": "^2.11.0",
-    "moment": "2.18.1",
-    "nuxt": "^2.11.0",
-    "trim-html": "^0.1.9",
-    "ua-parser-js": "^0.7.21"
-  },
-  "devDependencies": {
-    "babel-eslint": "^10.0.3",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.7.0",
-    "eslint-loader": "^3.0.3",
-    "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-vue": "^6.0.1",
-    "prettier": "^1.19.1"
-  }
 }
