@@ -20,21 +20,19 @@
   },
   "dependencies": {
     "axios": "0.16.2",
-    "iview": "2.11.0",
+    "iview": "^2.11.0",
     "moment": "2.18.1",
     "nuxt": "^2.11.0",
     "trim-html": "^0.1.9",
     "ua-parser-js": "^0.7.21"
   },
   "devDependencies": {
-    "babel-eslint": "7.2.3",
-    "eslint": "4.5.0",
-    "eslint-config-standard": "10.2.1",
-    "eslint-loader": "1.9.0",
-    "eslint-plugin-html": "3.2.0",
-    "eslint-plugin-import": "2.7.0",
-    "eslint-plugin-node": "5.1.1",
-    "eslint-plugin-promise": "3.5.0",
-    "eslint-plugin-standard": "3.0.1"
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-loader": "^3.0.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-vue": "^6.0.1",
+    "prettier": "^1.19.1"
   }
 }
