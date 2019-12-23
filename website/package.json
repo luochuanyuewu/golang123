@@ -22,9 +22,9 @@
     "axios": "0.16.2",
     "iview": "2.11.0",
     "moment": "2.18.1",
-    "nuxt": "1.0.0-rc11",
+    "nuxt": "^2.11.0",
     "trim-html": "^0.1.9",
-    "ua-parser-js": "^0.7.17"
+    "ua-parser-js": "^0.7.21"
   },
   "devDependencies": {
     "babel-eslint": "7.2.3",

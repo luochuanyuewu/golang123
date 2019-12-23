@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     head: {
         meta: [
             { charset: 'utf-8' },
@@ -20,20 +20,6 @@ module.exports = {
         resourceHints: false
     },
     build: {
-        /*
-         ** Run ESLINT on save
-         */
-        extend (config, ctx) {
-            if (ctx.isClient) {
-                config.module.rules.push({
-                    enforce: 'pre',
-                    test: /\.(js|vue)$/,
-                    loader: 'eslint-loader',
-                    exclude: /(node_modules)/
-                })
-            }
-        },
-        vendor: ['axios', 'iview']
     },
     plugins: [
         { src: '~plugins/iview.js', ssr: true },
